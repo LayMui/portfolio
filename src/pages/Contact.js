@@ -7,118 +7,100 @@ import {
   Input,
   Textarea,
   Button,
+  Select,
   FormErrorMessage,
-  VStack,
-  useToast,
 } from "@chakra-ui/react";
-import { Formik, Field, Form } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const ContactSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, "Too short!")
-    .max(50, "Too long!")
-    .required("Name is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  message: Yup.string()
-    .min(10, "Message too short")
-    .max(500, "Message too long")
-    .required("Message is required"),
-});
-
 export default function Contact() {
-  const toast = useToast();
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      message: "",
+      enquiryType: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required("Name is required"),
+      email: Yup.string().email("Invalid email address").required("Email is required"),
+      message: Yup.string().required("Message is required"),
+      enquiryType: Yup.string().required("Please select an enquiry type"),
+    }),
+    onSubmit: (values, actions) => {
+      console.log("Form submitted:", values);
+      actions.resetForm();
+      alert("Thank you for reaching out!");
+    },
+  });
 
   return (
-    <Box
-      id="contact"
-      py={16}
-      px={6}
-      maxW="container.md"
-      mx="auto"
-      bg="gray.50"
-      borderRadius="md"
-    >
-      <Heading as="h2" size="xl" mb={6} textAlign="center">
+    <Box id="contact" py={16} px={6} maxW="container.sm" mx="auto">
+      <Heading as="h2" size="xl" mb={8} textAlign="center" color="teal.600">
         Contact Me
       </Heading>
 
-      <Formik
-        initialValues={{ name: "", email: "", message: "" }}
-        validationSchema={ContactSchema}
-        onSubmit={(values, actions) => {
-          setTimeout(() => {
-            toast({
-              title: "Message sent",
-              description: "Thanks for reaching out! I'll get back to you soon.",
-              status: "success",
-              duration: 5000,
-              isClosable: true,
-            });
-            actions.setSubmitting(false);
-            actions.resetForm();
-          }, 1000);
-        }}
-      >
-        {(formik) => (
-          <Form>
-            <VStack spacing={4} align="stretch">
-              <Field name="name">
-                {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.name && form.touched.name}
-                    isRequired
-                  >
-                    <FormLabel>Name</FormLabel>
-                    <Input {...field} placeholder="Your name" />
-                    <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
+      <form onSubmit={formik.handleSubmit}>
+        <FormControl mb={4} isInvalid={formik.touched.name && formik.errors.name}>
+          <FormLabel>Name</FormLabel>
+          <Input
+            name="name"
+            placeholder="Your name"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
+          />
+          <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
+        </FormControl>
 
-              <Field name="email">
-                {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.email && form.touched.email}
-                    isRequired
-                  >
-                    <FormLabel>Email</FormLabel>
-                    <Input
-                      {...field}
-                      type="email"
-                      placeholder="your.email@example.com"
-                    />
-                    <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
+        <FormControl mb={4} isInvalid={formik.touched.email && formik.errors.email}>
+          <FormLabel>Email</FormLabel>
+          <Input
+            name="email"
+            placeholder="your@email.com"
+            type="email"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+          />
+          <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+        </FormControl>
 
-              <Field name="message">
-                {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.message && form.touched.message}
-                    isRequired
-                  >
-                    <FormLabel>Message</FormLabel>
-                    <Textarea {...field} placeholder="Your message" rows={6} />
-                    <FormErrorMessage>{form.errors.message}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
+        <FormControl mb={4} isInvalid={formik.touched.enquiryType && formik.errors.enquiryType}>
+          <FormLabel>Type of Enquiry</FormLabel>
+          <Select
+            name="enquiryType"
+            placeholder="Select enquiry type"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.enquiryType}
+          >
+            <option value="QA automation">QA automation</option>
+            <option value="speaking engagement">Speaking engagement</option>
+            <option value="freelance web development">Freelance web development</option>
+            <option value="mobile app automation">Mobile app automation</option>
+            <option value="MCP">Chatbot using MCP</option>
+          </Select>
+          <FormErrorMessage>{formik.errors.enquiryType}</FormErrorMessage>
+        </FormControl>
 
-              <Button
-                mt={4}
-                colorScheme="teal"
-                isLoading={formik.isSubmitting}
-                type="submit"
-                alignSelf="flex-start"
-              >
-                Send Message
-              </Button>
-            </VStack>
-          </Form>
-        )}
-      </Formik>
+        <FormControl mb={6} isInvalid={formik.touched.message && formik.errors.message}>
+          <FormLabel>Message</FormLabel>
+          <Textarea
+            name="message"
+            placeholder="Your message"
+            rows={5}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.message}
+          />
+          <FormErrorMessage>{formik.errors.message}</FormErrorMessage>
+        </FormControl>
+
+        <Button type="submit" colorScheme="teal" width="full">
+          Submit
+        </Button>
+      </form>
     </Box>
   );
 }
