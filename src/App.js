@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { ChakraProvider } from "@chakra-ui/react";
+import { Toaster } from "./components/ui/Toaster";
+import LandingPage from "./pages/Landing"; // Your main component or router
+import Header from "./components/ui/Header";
+import Projects from "./components/ui/Projects";
+import Contact from "./pages/Contact";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+        <Header />
+      <LandingPage name={"LayMui"} />
+    
+      <Projects />
+      <Contact />
+    </ChakraProvider>
   );
 }
 

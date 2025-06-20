@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# 🚀 Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📄 Project Overview
 
-### `npm start`
+This is a **single-page portfolio website** that includes the following sections:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Header**  
+  Contains external links to social media accounts and internal links for page navigation.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Landing Section**  
+  Displays an avatar and a short bio.
 
-### `npm test`
+- **Featured Projects**  
+  Projects are showcased as **cards arranged in a grid layout**.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Contact Me**  
+  Includes a form that allows visitors to send you a message.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🛠️ Technologies & Libraries Used
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To help you create a polished and professional portfolio, this project includes some pre-configured open-source libraries.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 💅 Chakra UI
 
-### `npm run eject`
+> Chakra UI is a modern component library for building accessible and responsive interfaces.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Chakra UI is **pre-installed and fully configured** in this project.
+- Common components are already imported from the `@chakra-ui/react` package at the top of each relevant file.
+- If a component isn’t imported, it’s likely not needed for that section — but feel free to explore more components in [Chakra’s official documentation](https://chakra-ui.com).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 📝 Formik & Yup
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+> Formik simplifies form state management, while Yup provides schema-based form validation.
 
-## Learn More
+Contact.js: 
+```
+Uses Formik to handle form state, submission, and validation state.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Uses Yup to define the validation schema.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Shows validation errors with Chakra UI's FormErrorMessage.
 
-### Code Splitting
+On submit, shows a success toast and resets the form.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Submit button is disabled & shows loading state while submitting.
+```
+- No extra setup is required — both libraries are already
