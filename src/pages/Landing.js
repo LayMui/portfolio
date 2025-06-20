@@ -9,7 +9,7 @@ export default function Landing({ name }) {
       textAlign="center"
       py={16}
       px={6}
-      bg="gray.50"
+      bgGradient="linear(to-b, teal.50, blue.50)"
       minH="300px"
       borderRadius="md"
       maxW="container.md"
