@@ -41,8 +41,28 @@ export default function Header() {
       py={4}
       boxShadow="sm"
     >
-      {/* Menu Links */}
-      <HStack spacing={10}>
+     
+      {/* Social Icons */}
+      <HStack spacing={3}>
+        {socialLinks.map(({ label, href, icon: Icon }) => (
+          <IconButton
+            key={label}
+            as="a"
+            href={href}
+            aria-label={label}
+            icon={<Icon />}
+            size="md"
+            variant="ghost"
+            color="gray.600"
+            _hover={{ color: "teal.500", transform: "scale(1.1)" }}
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+        ))}
+      </HStack>
+
+       {/* Menu Links */}
+       <HStack spacing={10}>
         <Link
           href="#projects"
           onClick={scrollToId("projects")}
@@ -63,24 +83,6 @@ export default function Header() {
         </Link>
       </HStack>
 
-      {/* Social Icons */}
-      <HStack spacing={3}>
-        {socialLinks.map(({ label, href, icon: Icon }) => (
-          <IconButton
-            key={label}
-            as="a"
-            href={href}
-            aria-label={label}
-            icon={<Icon />}
-            size="md"
-            variant="ghost"
-            color="gray.600"
-            _hover={{ color: "teal.500", transform: "scale(1.1)" }}
-            target="_blank"
-            rel="noopener noreferrer"
-          />
-        ))}
-      </HStack>
     </Flex>
   );
 }
